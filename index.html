@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テレビチケット利用状況</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f0f7f4; /* 優しい薄緑の背景 */
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 3px solid #b2d8d8;
+        }
+        h1 {
+            font-size: 1.5rem;
+            color: #2d6a4f;
+            margin-bottom: 25px;
+        }
+        .name-badge {
+            display: inline-block;
+            background-color: #d8f3dc;
+            color: #1b4332;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+        }
+        .stat-box {
+            background-color: #f8f9fa;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            border: 1px solid #e9ecef;
+        }
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 5px;
+        }
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: #2d6a4f;
+        }
+        .stat-unit {
+            font-size: 1rem;
+            margin-left: 5px;
+        }
+        .today-box .stat-value {
+            color: #ee6c4d; /* 今日使った分は少し目立つ色に */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="name-badge" id="web-name">読み込み中...</div>
+        <h1>テレビチケット利用状況</h1>
+
+        <div class="stat-box">
+            <div class="stat-label">こんげつの のこり</div>
+            <div class="stat-value" id="web-remaining">-<span class="stat-unit">まい</span></div>
+        </div>
+
+        <div class="stat-box today-box">
+            <div class="stat-label">きょう みたじかん</div>
+            <div class="stat-value" id="web-today">-<span class="stat-unit">ふん</span></div>
+        </div>
+    </div>
+
+    <script>
+        // 前のステップで作成したGASのURLに置き換えてください
+        const gasUrl = "ここにGASのURLを貼り付け";
+
+        fetch(gasUrl)
+            .then(response => response.json())
+            .then(data => {
+                // スプレッドシートから取得した値を画面にセット
+                document.getElementById("web-name").innerText = data.title + " のページ";
+                document.getElementById("web-remaining").innerHTML = data.count + '<span class="stat-unit">まい</span>';
+                document.getElementById("web-today").innerHTML = data.status + '<span class="stat-unit">ふん</span>';
+            })
+            .catch(error => {
+                console.error("エラーが発生しました:", error);
+                document.getElementById("web-name").innerText = "エラー";
+            });
+    </script>
+</body>
+</html>
