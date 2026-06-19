@@ -88,17 +88,19 @@
         // 前のステップで作成したGASのURLに置き換えてください
         const gasUrl = "https://script.google.com/macros/s/AKfycbxqWme8yzT7FDrjrTw4GJAiZ39L-Z4rISVi2JMjLcsB-IuAr6wjeJuWSznZkA7qZWY1Rw/exec";
 
+
         fetch(gasUrl)
-            .then(response => response.json())
-            .then(data => {
-                // スプレッドシートから取得した値を画面にセット
-                document.getElementById("web-name").innerText = data.title + " のページ";
-                document.getElementById("web-remaining").innerHTML = data.count + '<span class="stat-unit">まい</span>';
-                document.getElementById("web-today").innerHTML = data.status + '<span class="stat-unit">ふん</span>';
+            .then(response => response.text()) // ここを .json() から .text() に変更
+            .then(text => {
+                const data = JSON.parse(text); // テキストをJSONに変換
+        
+                // あとの処理は同じです
+                document.getElementById("web-name").innerText = data.ender_perl + " のページ";
+                document.getElementById("web-remaining").innerHTML = data.ender_eye + '<span class="stat-unit">まい</span>';
+                document.getElementById("web-today").innerHTML = data.daily_limit + '<span class="stat-unit">ふん</span>';
             })
             .catch(error => {
-                console.error("エラーが発生しました:", error);
-                document.getElementById("web-name").innerText = "エラー";
+                console.error("エラー:", error);
             });
     </script>
 </body>
