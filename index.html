@@ -87,8 +87,8 @@
     <script>
         // 前のステップで作成したGASのURLに置き換えてください
         const gasUrl = "https://script.google.com/macros/s/AKfycbyw3aPGWkyvfYJkdqXmRJXKlQMzjPfZdBQCBrLvVHeXbQakv_WrDCmc2ggioqSRFjsL1w/exec?";
-
-        fetch(gasUrl,{
+        const proxyUrl = "https://corsproxy.io/?" + encodeURIComponent(gasUrl);
+        fetch(proxyUrl,{
             method: GET,
             headers: {
                 "Accept": "text/plain, text/html"
