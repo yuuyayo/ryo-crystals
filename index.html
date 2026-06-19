@@ -88,7 +88,11 @@
         // 前のステップで作成したGASのURLに置き換えてください
         const gasUrl = "https://script.google.com/macros/s/AKfycbyw3aPGWkyvfYJkdqXmRJXKlQMzjPfZdBQCBrLvVHeXbQakv_WrDCmc2ggioqSRFjsL1w/exec?";
 
-        fetch(gasUrl)
+        fetch(gasUrl,{
+            method: GET,
+            headers: {
+                "Accept": "text/plain, text/html"
+        })
         .then(response => response.text())
         .then(text => {
             const data = JSON.parse(text);
