@@ -86,21 +86,17 @@
 
     <script>
         // 前のステップで作成したGASのURLに置き換えてください
-        const gasUrl = "https://script.google.com/macros/s/AKfycbxcucTlc5UVxEX4MCGQ06Kj1bFYEhuWtSCPjr9rEHJ47VVLfwrNYGqJ9F7PJRInwtoXZA/exec";
+        const gasUrl = "https://script.google.com/macros/s/AKfycbyw3aPGWkyvfYJkdqXmRJXKlQMzjPfZdBQCBrLvVHeXbQakv_WrDCmc2ggioqSRFjsL1w/exec";
 
-        fetch(gasUrl, {
-            method: "GET",
-            redirect: "follow" // Googleの転送についていく設定
-        })
-        .then(response => response.json())
-        .then(data => {
+        fetch(gasUrl)
+        .then(response => response.text())
+        .then(text => {
+            const data = JSON.parse(text);
             document.getElementById("web-name").innerText = data.title + " のページ";
             document.getElementById("web-remaining").innerHTML = data.count + '<span class="stat-unit">まい</span>';
             document.getElementById("web-today").innerHTML = data.status + '<span class="stat-unit">ふん</span>';
         })
         .catch(error => console.error("エラー:", error));
-
-
     </script>
 </body>
 </html>
